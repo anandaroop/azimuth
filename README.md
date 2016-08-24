@@ -14,7 +14,7 @@ The goal here is to optimize for ease and speed of iteration and for **<span sty
 ## Meta
 
 * __State:__ experimental
-* __Github:__ [https://github.com/anandaroop/azimuth/](https://github.com/anandaroop/azimuth/)
+* __GitHub:__ [https://github.com/artsy/azimuth/](https://github.com/artsy/azimuth/)
 * __Point people:__ [@anandaroop](https://github.com/anandaroop)
 
 ## Setup
