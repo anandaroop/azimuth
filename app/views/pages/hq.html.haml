@@ -1,0 +1,24 @@
+- map_title 'Hello, HQ' do
+  %p A simple map class that composes a Leaflet.map and centers on Artsy HQ
+
+#map{ style: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: -1' }
+
+:coffeescript
+  class Azimuth.HQMap
+    constructor: (options = {}) ->
+      { selector, mapOptions } = options
+      @$el = $(selector)
+      @initialize(mapOptions)
+
+    initialize: (options) ->
+      @map = L.map(@$el.get(0), options)
+      @map.addLayer L.tileLayer.provider('Esri.WorldGrayCanvas')
+      @map.addControl L.marker([Azimuth.HQ.lat, Azimuth.HQ.lng])
+
+  $ ->
+    window.azmap = new Azimuth.HQMap(
+      selector: '#map'
+      mapOptions:
+        center: [Azimuth.HQ.lat, Azimuth.HQ.lng]
+        zoom: 16
+    )

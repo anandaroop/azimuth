@@ -1,0 +1,25 @@
+- map_title "Current user’s coordinates" do
+  %p Centered on the user’s location as stored in Gravity. (Quality of that ip-to-geocoding might be sketchy.)
+
+#map{ style: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: -1' }
+
+:coffeescript
+  class Azimuth.UserLocationMap
+    constructor: (options = {}) ->
+      { selector, mapOptions } = options
+      @$el = $(selector)
+      @initialize(mapOptions)
+
+    initialize: (options) ->
+      @map = L.map(@$el.get(0), options)
+      @map.addLayer L.tileLayer.provider('Esri.WorldGrayCanvas')
+      @map.addControl L.marker(options.center)
+
+  $ ->
+    window.azmap = new Azimuth.UserLocationMap(
+      selector: '#map'
+      mapOptions:
+        center: [#{@coordinates['lat']}, #{@coordinates['lng']}]
+        zoom: 16
+    )
+

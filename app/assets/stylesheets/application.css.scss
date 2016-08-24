@@ -1,0 +1,22 @@
+/*
+ * We switch from an application.css with a bunch of Sprockets require directives
+ * to an application.css.scss with a bunch of Sass @import directives 
+ * in order to avoid the redundant inclusion of .scss files over and over.
+ *
+ * See: http://inside.unbounce.com/product-dev/handling-code-duplication/ 
+ *
+ */
+
+/* watt styles */
+
+@import 'watt/base';
+
+/* third party styles */
+
+@import 'leaflet/leaflet';
+@import 'flickity/flickity';
+
+/* Azimuth styles */
+
+@import 'local';
+@import 'overrides';

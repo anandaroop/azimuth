@@ -1,0 +1,61 @@
+%h1 Artsy Azimuth
+
+.intro.lead.single-margin
+  Azimuth is a collection of mapping experiments using the Artsy API.
+
+.panel{ style: 'margin-bottom: 2em' }
+  .row
+    .col-md-5
+      %p{ style: 'font-size: 1.2em; margin-top: 0.5em' }
+        If you're coming from the Artsy 2016 Hackathon demo
+        you are probably looking for this map. 
+
+      = link_to 'View the prototype map', hackathon_path, class: 'btn btn-small btn-primary'
+    .col-md-7
+      = link_to image_tag('screenshots/hackathon-prototype.png', width: '100%'), hackathon_path
+
+%ul.toc
+
+  %li
+    .toc__name= link_to "Hackathon prototype", hackathon_path
+    .toc__desc 
+      An <code>Azimuth.CarouselMap</code>, which:
+      %ul
+        %li overlays the map with a Flickity carousel of partner info
+        %li synchronizes interactions between the two
+        %li further customizes show markers and adds an animated highlight state
+        %li provides a top nav bar to select from Artsy featured cities
+
+  %li
+    .toc__name= link_to "Mapbox custom vector style", mapbox_path
+    .toc__desc An <code>Azimuth.MapboxMap</code>, which employs custom basemap styles created with Mapbox's map design studio
+
+  %li
+    .toc__name= link_to "Bounded, dot map", dotmap_path
+    .toc__desc An <code>Azimuth.DotMap</code>, which replaces the default marker icon with a translucent disc (and puts bounds on the panning and zooming).
+
+  %li
+    .toc__name= link_to "Moveable", moveable_path
+    .toc__desc An <code>Azimuth.MoveableMap</code>, which responds to map panning with an updated list of shows
+
+  %li
+    .toc__name= link_to "New York Shows", nyc_100_path
+    .toc__desc An <code>Azimuth.NYC100Map</code>, which displays up to 10 pages / 100 entries worth of API results in one gulp
+
+  %li
+    .toc__name= link_to "HTML5 Geolocation API", geolocation_path
+    .toc__desc An <code>Azimuth.GeolocationMap</code>, which uses the HTML5 Geolocation API to center a map on the user's current location, as reported by their browser
+
+  %li
+    .toc__name= link_to "Event listeners", evented_path
+    .toc__desc An <code>Azimuth.EventedMap</code>, which listens for events on the underlying Leaflet map
+
+  %li
+    .toc__name= link_to "Current user's coordinates", user_coordinates_path
+    .toc__desc An <code>Azimuth.UserLocationMap</code>, which is centered on the current user's coordinates, as stored in Gravity
+
+  %li
+    .toc__name= link_to "Hello, HQ", hq_path
+    .toc__desc An <code>Azimuth.HQMap</code>, a "Hello, world" map centered on 401 Broadway
+
+

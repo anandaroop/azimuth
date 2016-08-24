@@ -1,0 +1,57 @@
+- map_title "Dot Map" do
+  %p Shows markers as dark translucent discs (the translucency amounts to a kind of heatmap in densely populated neighborhoods like Chelsea)
+  %p Also the zooming and panning are bounded, to "lock in" this map on the greater NYC area
+
+#map{ style: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: -1' }
+
+:coffeescript
+  class Azimuth.DotMap
+    constructor: (options = {}) ->
+      { selector, mapOptions } = options
+      @$el = $(selector)
+      @initialize(mapOptions)
+      @fetchData()
+
+    initialize: (options) ->
+      @map = L.map(@$el.get(0), options)
+      @map.addLayer L.tileLayer.provider('Esri.WorldGrayCanvas')
+      @center = options.center
+      @markers = L.layerGroup().addTo(@map)
+
+    fetchData: ->
+      $.getJSON location + '.json', latlng: @center.lat + ',' + @center.lng
+        .done (data) =>
+          @updateMap data
+        .fail ->
+          alert 'Could not fetch the data!'
+
+    updateMap: (data) ->
+      _.each data, (show) =>
+        if show.location?
+          { id, name, location : { coordinates } } = show
+          showLink = '<a href="https://www.artsy.net/show/' + id + '">' + name + '</a>'
+          marker = L.circleMarker(coordinates, 
+            radius: 8,
+            # stroke
+            stroke: false,
+            color: '#000000',
+            weight: 1,
+            opacity: 0.6,
+            # fill
+            fill: true,
+            fillColor: '#000000',
+            fillOpacity: 0.4
+          ).bindTooltip(showLink)
+          @markers.addLayer(marker)
+
+  $ ->
+    window.azmap = new Azimuth.DotMap
+      selector: '#map'
+      mapOptions:
+        center: Azimuth.HQ
+        zoom: 13
+        minZoom: 10
+        maxBounds: [
+          [40.50910079,-74.30877685]
+          [40.91299367,-73.74710083]
+        ]

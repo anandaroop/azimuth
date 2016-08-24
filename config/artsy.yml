@@ -1,0 +1,6 @@
+development: &default
+  url: <%= ENV['artsy_url'] %>
+test:
+  <<: *default
+production:
+  <<: *default

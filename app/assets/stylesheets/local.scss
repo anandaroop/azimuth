@@ -1,0 +1,56 @@
+// homepage
+
+.toc {
+  margin: 1em;
+  padding: 0;
+  > li {
+    margin-bottom: 1.5em;
+  }
+}
+
+.toc__name {
+  @include avant-garde();
+  letter-spacing: 0.03em;
+  a { color: $gray-darkest; }
+}
+
+.toc__desc {
+  margin: 0.25em 0;
+  color: $gray-dark;
+}
+
+//  fullscreen maps
+
+.map-meta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 1em;
+  background: hsla(0, 0%, 100%, 0.5);
+  max-width: 40em;
+}
+
+.map-meta__backnav {
+  @include avant-garde();
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5em;
+  a {
+    color: $gray;
+    &:hover {
+      color: $purple;
+    }
+    .icon-chevron-left {
+      font-size: 80%;
+    }
+  }
+}
+
+.map-meta__title {
+}
+
+.map-meta__description {
+  margin: 1em 0;
+  float: right
+}

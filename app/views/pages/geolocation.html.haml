@@ -1,0 +1,29 @@
+- map_title 'HTML5 Geolocation API' do
+  %p Makes use of the #{link_to "browser’s native geolocation API", "https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation"} to show the user’s current position
+
+#map{ style: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: -1' }
+
+:coffeescript
+  class Azimuth.GeolocationMap
+    constructor: (options = {}) ->
+      { selector, userLocation, mapOptions } = options
+      @$el = $(selector)
+      @userLocation = userLocation
+      @initialize(mapOptions)
+
+    initialize: (options) ->
+      @map = L.map(@$el.get(0), options)
+      @map.setView @userLocation
+      @map.addLayer L.tileLayer.provider('Esri.WorldGrayCanvas')
+      @map.addControl L.marker(@userLocation)
+
+  $ ->
+    if not navigator.geolocation?
+      $('#map').append '<p>Sorry, looks like your browser does not support the HTML5 Geolocation API</p>'
+    else
+      navigator.geolocation.getCurrentPosition (position) ->
+        userLocation = [position.coords.latitude, position.coords.longitude]
+        window.azmap = new Azimuth.GeolocationMap
+          selector: '#map',
+          userLocation: userLocation
+          mapOptions: { zoom: 16 }

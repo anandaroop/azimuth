@@ -1,0 +1,10 @@
+development: &default
+  url: <%= ENV['gravity_url'] %>
+  api_root: <%= ENV['gravity_api_root'] %>
+  application_id: <%= ENV['gravity_application_id'] %>
+  application_secret: <%= ENV['gravity_application_secret'] %>
+  application_token: <%= ENV['gravity_access_token'] %>
+test:
+  <<: *default
+production:
+  <<: *default
