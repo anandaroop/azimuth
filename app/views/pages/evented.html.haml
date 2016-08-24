@@ -1,0 +1,38 @@
+- map_title 'Evented map' do
+  %p Open developer console to see results of map interactions
+
+#map{ style: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: -1' }
+
+:coffeescript
+  class Azimuth.EventedMap
+    constructor: (options = {}) ->
+      { selector, mapOptions, listeners } = options
+      @$el = $(selector)
+      @initialize(mapOptions)
+      @addEventListeners()
+      @addCustomEventListeners(listeners)
+
+    initialize: (options) ->
+      @map = L.map(@$el.get(0), options)
+      @map.addLayer L.tileLayer.provider('Esri.WorldGrayCanvas')
+      @map.addControl L.marker([Azimuth.HQ.lat, Azimuth.HQ.lng])
+
+    addEventListeners: ->
+      @map.on 'click', (e) -> console.log 'map click at:', e.latlng  # simple one-liner     
+      @map.on 'moveend', @viewChangeHandler  # dedicated handler
+
+    addCustomEventListeners: (listeners) =>
+      for eventName, eventHandler of listeners
+        @map.on eventName, eventHandler
+
+    viewChangeHandler: =>
+      console.log 'view changed, new center at: ', @map.getCenter() ,'new bounds:', @map.getBounds()
+
+  $ ->
+    window.azmap = new Azimuth.EventedMap
+      selector: '#map'
+      mapOptions: 
+        center: [Azimuth.HQ.lat, Azimuth.HQ.lng]
+        zoom: 16
+      listeners:
+        'click': () -> console.log 'custom click handler!'

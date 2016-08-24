@@ -1,0 +1,55 @@
+- map_title "Moveable Map" do
+  %p Every time this map is panned (<code>onmoveend</code>), it fires a new "shows near lat,lng" request off to Gravity, based on the new center point of the map. 
+  %p Try panning in a few steps from NYC southwest down to Philly and onward to DC.
+
+#map{ style: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: -1' }
+
+:coffeescript
+  class Azimuth.MoveableMap
+    constructor: (options = {}) ->
+      { selector, mapOptions } = options
+      @$el = $(selector)
+      @initialize(mapOptions)
+      @addEventListeners()
+      @fetchData()
+
+    initialize: (options) ->
+      @map = L.map(@$el.get(0), options)
+      @map.addLayer L.tileLayer.provider('Esri.WorldGrayCanvas')
+      @center = options.center
+      @markers = L.layerGroup().addTo(@map)
+
+    addEventListeners: ->
+      @map.on 'moveend', @viewChangeHandler
+
+    fetchData: ->
+      console.log 'fetching around', @center, '…'
+      $.getJSON location + '.json', latlng: @center.lat + ',' + @center.lng
+        .done (data) =>
+          console.log 'got', data.length
+          @updateMap data
+        .fail ->
+          alert 'Could not fetch the data!'
+
+    updateMap: (data) ->
+      # naively blow away the entire previous contents of the marker layer
+      # to prevent markers doubling up — need to maintain a list in the component.
+      @markers.clearLayers()
+      _.each data, (show) =>
+        if show.location?
+          { id, name, location : { coordinates } } = show
+          showLink = '<a href="https://www.artsy.net/show/' + id + '">' + name + '</a>'
+          marker = L.marker(coordinates, icon: Azimuth.Icons.GrayIcon, title: name, alt: name).bindTooltip(showLink)
+          @markers.addLayer(marker)
+
+    viewChangeHandler: =>
+      @center = @map.getCenter()
+      @fetchData()
+
+
+  $ ->
+    window.azmap = new Azimuth.MoveableMap
+      selector: '#map'
+      mapOptions:
+        center: Azimuth.HQ
+        zoom: 10

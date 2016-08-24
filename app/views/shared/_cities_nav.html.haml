@@ -1,0 +1,34 @@
+- cities = [{name: 'New York', slug: 'new-york', latlng: [40.71, -74.01] }, {name: 'London', slug: 'london', latlng: [51.51, -0.13] }, {name: 'Los Angeles', slug: 'los-angeles', latlng: [34.05, -118.24] }, {name: 'Paris', slug: 'paris', latlng: [48.86, 2.35] }, {name: 'Berlin', slug: 'berlin', latlng: [52.52, 13.4] }, {name: 'Miami', slug: 'miami', latlng: [25.76, -80.19] }, {name: 'San Francisco', slug: 'san-francisco', latlng: [37.77, -122.42] }, {name: 'Hong Kong', slug: 'hong-kong', latlng: [22.28, 114.17] }, {name: 'Milan', slug: 'milan', latlng: [45.47, 9.19] }, {name: 'São Paulo', slug: 'são-paulo', latlng: [-23.55, -46.63] }, {name: 'Tokyo', slug: 'tokyo', latlng: [35.71, 139.73] } ]
+
+%nav.cities
+  %h1 Shows on Artsy
+  %ul
+    - cities.each do |city|
+      - url = hackathon_path(slug: city[:slug]) + '?latlng=' + city[:latlng].join(',')
+      %li
+        = link_to city[:name], url
+
+:scss
+  nav.cities {
+    z-index: 1000;
+    background: hsla(0, 0%, 100%, 0.8);
+    padding-bottom: 10px;
+    box-shadow: 0 0 10px #ccc;
+    h1 {
+      padding: 20px 0 0 20px;
+    }
+    ul {
+      margin: 0; 
+      padding: 10px 20px;
+      li {
+        list-style-type: none;
+        margin: 0; padding: 0;
+        display: inline-block; 
+        a {
+          font-size: 1.2em;
+          margin-right: 0.5em;
+          cursor: pointer;
+        }
+      }
+    }
+  }

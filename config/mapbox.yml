@@ -1,0 +1,6 @@
+development: &default
+  access_token: <%= ENV['mapbox_access_token'] %>
+test:
+  <<: *default
+production:
+  <<: *default
