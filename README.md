@@ -58,6 +58,11 @@ The goal here is to optimize for ease and speed of iteration and for **<span sty
   $ bundle install
   ~~~
 
+  If the bundle step fails when trying to fetch private Artsy gems, you may need to:
+
+  0. Create a [personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) for command line use
+  0. [Run `bundle config`](https://gist.github.com/sebboh/f1dfe4f096746c45f3e9ea06a09743a0) with your new token
+
 0. Start the server
 
   ~~~
