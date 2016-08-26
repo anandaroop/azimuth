@@ -23,7 +23,3 @@
 .env
 
 .sass-cache
-
-# Ignoring Gemfile.lock due to private artsy oauth tokens for github
-# which are used to pull in private, admin gems into the bundle
-Gemfile.lock

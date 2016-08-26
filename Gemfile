@@ -32,17 +32,17 @@ end
 
 gem 'foreman'
 gem 'omniauth-oauth2'
-artsy_internal_repo_url 'omniauth-artsy'
-artsy_internal_repo_url 'kinetic'
-# gem 'oauth2', { git: 'https://github.com/matthewrudy/oauth2.git', branch: 'rack2' }
+gem 'oauth2', { git: 'https://github.com/matthewrudy/oauth2.git', branch: 'rack2' }
+gem 'omniauth-artsy', git: 'https://github.com/artsy/omniauth-artsy.git'
+gem 'kinetic', { git: 'https://github.com/artsy/kinetic.git' }
 gem 'typhoeus', '0.7.1'
 gem 'ethon', git: 'https://github.com/dylanfareed/ethon.git'
 gem 'active_attr'
 gem 'haml-rails'
 
-artsy_internal_repo_url 'watt'
+watt_gem_spec = { git: 'https://github.com/artsy/watt.git', branch: 'master' }
 # watt_gem_spec = { path: '../watt' }
-# gem 'watt', watt_gem_spec
+gem 'watt', watt_gem_spec
 gem 'bootstrap-sass'
 gem 'bourbon'
 gem 'neat'
