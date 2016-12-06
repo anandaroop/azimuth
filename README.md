@@ -21,17 +21,7 @@ The goal here is to optimize for ease and speed of iteration and for **<span sty
 
 0. Fork this repo, and clone your copy to your local machine
 
-0. Find or create your `ClientApplication` in Gravity
-
-  * You can generate Gravity client app credentials from a Rails console as follows:
-
-  ~~~ruby
-  user = User.find_by_email('REPLACE')
-  app = ClientApplication.create!(name: 'REPLACE', access_granted: true, redirect_urls: ['http://localhost:9000'], api_version: 1, user: user)
-  expires_in = 10.years.from_now
-  access_token = UserTrust.create_for_token_authentication(user: user, application: app, expires_in: expires_in)
-  puts "gravity_application_id=#{app.app_id}\ngravity_application_secret=#{app.app_secret}\ngravity_access_token=#{access_token}"
-  ~~~
+0. [Find or create your `ClientApplication` and access credentials](https://github.com/artsy/gravity/blob/master/doc/ApiAuthentication.md#get-an-application-key) in a Gravity rails console.
 
   * Make sure the `ClientApplication` includes `"http://localhost:9000"` in its `redirect_urls`. (If you are using a different port, you can set it in the `.env` file, below)
 
